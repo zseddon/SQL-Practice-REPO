@@ -1,16 +1,12 @@
-# Exercise 03 — Joins
-
-
-Write a query that returns the following columns:
-- order_id
-- user_first_name
-- user_last_name
-- product_name
-- quantity
-- total_price (quantity * unit_price)
-
-
-Order the results by order_id, product_name.
-
-
-Expected: rows for order 1 (two products), order 2 and order 3.
+SELECT
+  o.id AS order_id,
+  u.first_name AS user_first_name,
+  u.last_name AS user_last_name,
+  p.name AS product_name,
+  oi.quantity,
+  (oi.quantity * oi.unit_price) AS total_price
+FROM orders o
+JOIN users u ON u.id = o.user_id
+JOIN order_items oi ON oi.order_id = o.id
+JOIN products p ON p.id = oi.product_id
+ORDER BY o.id, p.name;
